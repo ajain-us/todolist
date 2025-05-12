@@ -6,7 +6,6 @@ export default function App() {
   return (
     <View style={styles.container}>
       <List></List>
-      <StatusBar style="auto" />
     </View>
   );
 }
@@ -16,6 +15,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    paddingTop: 100
   },
 });

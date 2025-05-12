@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 
-import { View, TextInput, Button, StyleSheet} from 'react-native';
+import { View, TextInput, TouchableOpacity, StyleSheet, Text, FlatList, Alert} from 'react-native';
 
 import Item from './Item';
 
 export default function List(){
     const [tasks, setTasks] = useState([]);
     const [text, setText] = useState('');
-    //const [indx, setIndx] = useState(-1);
 
     function addTask(){
+        if (text === ''){
+            Alert.alert("Provide a task", "Please enter a task before adding.");
+            return;
+        }
         const newTask = {key: Date.now(), text: text, marked: false};
         setTasks([...tasks, newTask]);
         setText('');
@@ -21,16 +24,23 @@ export default function List(){
 
     function markTask(change){
         setTasks(tasks.map((elem) => 
-            elem.id === change ? {key: elem.key, text: elem.text, marked: (!elem.marked)} : elem));
+            elem.key === change ? {key: elem.key, text: elem.text, marked: (!elem.marked)} : elem));
     }
 
     return(
         <View>
-            <TextInput value={text} onChangeText={setText} style={styles.input} />
-            <Button title="Add" onPress={addTask}/>
-            {tasks.map((task) => (
-                <Item task={task} indx={task.key} deleteTask={deleteTask} markTask={markTask}/>
-            ))}
+            <View style={styles.top}>
+                <TextInput value={text} onChangeText={setText} style={styles.input} /> 
+                <TouchableOpacity style={styles.button} onPress={addTask}>
+                    <Text style={styles.buttonText}>+</Text>
+                </TouchableOpacity>
+            </View>
+            <FlatList
+                data={tasks}
+                renderItem={({ item }) => (
+                <Item task={item} deleteTask={deleteTask} markTask={markTask} />)}
+                keyExtractor={(item) => item.key}
+            />
         </View>
     )
 }
@@ -38,10 +48,29 @@ export default function List(){
 const styles = StyleSheet.create({
     input: {
         borderWidth: 1,
-        borderColor: '#aaa',
+        borderColor: 'black',
         borderRadius: 4,
         padding: 8,
-        marginBottom: 8
+        marginRight: 8,
+        marginBottom: 8,
+        width: 200, 
+        height: 40
+    },
+    button: {
+        backgroundColor: 'blue',
+        paddingVertical: 10,
+        paddingHorizontal: 16,
+        borderRadius: 4,
+        height: 40,
+    },
+    buttonText: {
+        color: 'white',
+        fontWeight: 'bold',
+        fontSize: 16
+    },
+    top: {
+        flexDirection: 'row',
+        marginBottom: 20,
     }
 });
 
