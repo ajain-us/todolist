@@ -1,6 +1,6 @@
 # Getting Started
 To use this app please have Node installed. <br>
-In the terminal run `npm i`. <br>
+In the terminal run `npm i`. This will install all the required dependencies.<br>
 Once you have done this, run `npx expo start`. <br>
 At this point you should see a bunch of text with a QR code. Please scan the QR code to get the app on your phone, ensure you have the Expo Go mobile application. <br>
 From here you should be able to add, remove and complete tasks!
