@@ -5,7 +5,7 @@ import { View, Text, Button, StyleSheet } from 'react-native';
 export default function Item({task, deleteTask, markTask}){
     return (<View style={task.marked ? styles.row_fin : styles.row}>
         <Text style={task.marked ? styles.text_fin : styles.text}> {task.text} </Text>
-        <Button title="✅" onPress={() => markTask(task.key)}/>
+        <Button title="✔️" onPress={() => markTask(task.key)}/>
         <Button title="❌" onPress={() => deleteTask(task.key)}/>
     </View>)
 }
